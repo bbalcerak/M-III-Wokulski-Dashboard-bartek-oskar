@@ -33,5 +33,47 @@ fun ExpenseForm(onAddExpense:
         mutableStateOf(false)
     }
 
+    Column(
+        Modifier.padding(16.dp)
+    ) {
+        Text("KSIĘGOWANIE KOSZTÓW")
 
+        WokulskiTextField(value = name,
+            onValueChange = { name = it },
+            label = "Nazwa towaru/usługi")
+        WokulskiTextField(value = amount,
+            onValueChange = { amount = it },
+            label = "kwota (ruble)")
+        WokulskiTextField(value = category,
+            onValueChange = { category = it },
+            label = "Kategoria")
+
+        Row(verticalAlignment = Alignment.CenterVertically){
+            Text("Wydatek zbyteczny?")
+            Switch(checked = isUnnecessary, onCheckedChange = { isUnnecessary = it })
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        WokulskiButton(
+            Text = "Dodaj do księgi",
+            onClick = {
+                if(name.isNotBlank() && amount.isNotBlank()) {
+                    val transaction = Transaction(
+                        name = name,
+                        amount = amount.toDouble(),
+                        isExpense = true,
+                        category = category,
+                        isUnnecessary = isUnnecessary
+                    )
+
+                    onAddExpense(transaction)
+                    name = ""
+                    amount = ""
+                    category = ""
+                    isUnnecessary = false
+                }
+            }
+        )
+    }
 }
