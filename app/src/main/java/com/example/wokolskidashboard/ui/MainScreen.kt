@@ -2,6 +2,7 @@ package com.example.wokolskidashboard.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,5 +24,14 @@ fun MainScreen(modifier: Modifier = Modifier) {
         ExpenseForm(onAddExpense = { newTransaction ->
             transactions.add(newTransaction)
         })
+
+        Text(text = "Ostatnie zapisy:")
+        LazyColumn {
+            items(transactions.size) { index ->
+                val item = transactions[index]
+
+                Text("- ${item.name}: ${item.amount} rubli (${item.category})")
+            }
+        }
     }
 }
