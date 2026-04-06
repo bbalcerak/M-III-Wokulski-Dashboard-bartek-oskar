@@ -56,12 +56,14 @@ fun ExpenseForm(onAddExpense:
         Spacer(modifier = Modifier.height(10.dp))
 
         WokulskiButton(
-            Text = "Dodaj do księgi",
+            text = "Dodaj do księgi",
             onClick = {
-                if(name.isNotBlank() && amount.isNotBlank()) {
+                val parsedAmount = amount.toDoubleOrNull()
+
+                if(name.isNotBlank() && parsedAmount != null && parsedAmount > 0) {
                     val transaction = Transaction(
                         name = name,
-                        amount = amount.toDouble(),
+                        amount = parsedAmount,
                         isExpense = true,
                         category = category,
                         isUnnecessary = isUnnecessary

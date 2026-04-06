@@ -23,12 +23,12 @@ fun WokulskiTextField(
 
 @Composable
 fun WokulskiButton(
-    Text: String,
+    text: String,
     onClick: () -> Unit ) {
     Button(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text(text = "")
+        Text(text = text)
     }
 }
