@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.wokolskidashboard.model.Transaction
 import com.example.wokolskidashboard.ui.components.ExpenseForm
+import com.example.wokolskidashboard.ui.components.BalanceHeader
 
 @Composable
 fun MainScreen(modifier: Modifier = Modifier) {
@@ -27,19 +28,8 @@ fun MainScreen(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         val balance = transactions.sumOf { if (it.isExpense) -it.amount else it.amount }
 
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-        ) {
-            Column(
-                Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text("STAN KASY WOKULSKIEGO")
-                Text("${balance} Rubli")
-            }
-        }
+
+        BalanceHeader(balance = balance)
 
         ExpenseForm(onAddExpense = { newTransaction ->
             transactions.add(newTransaction)

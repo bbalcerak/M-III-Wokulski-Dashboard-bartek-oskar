@@ -3,6 +3,7 @@ package com.example.wokolskidashboard.ui.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -13,12 +14,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun BalanceHeader(
-    balance: Float,
+    balance: Double,
 )
 {
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(15.dp),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Center
