@@ -1,60 +1,68 @@
 package com.example.wokolskidashboard.ui.components
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.example.wokolskidashboard.model.Transaction
 
 @Composable
-fun IncomeForm(onSubmit: (product: String, price: Float) -> Unit) {
-    val product = remember { mutableStateOf("") }
-    val price = remember { mutableStateOf("") }
+fun IncomeForm(onAddIncome: (Transaction) -> Unit) {
+    var name by remember { mutableStateOf("") }
+    var amount by remember { mutableStateOf("") }
+    var category by remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(20.dp),
-        horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        Modifier.padding(16.dp)
     ) {
-        Text(text = "Dodaj przychód", fontSize = MaterialTheme.typography.headlineMedium.fontSize)
+        Text("KSIĘGOWANIE ZYSKÓW (PRZYCHODY)")
 
-        Text(text = "Nazwa produktu: ")
-        OutlinedTextField(
-            value = product.value,
-            onValueChange = { product.value = it },
-            label = { Text("Nazwa produktu") },
-            placeholder = { Text(text = "Nazwa produktu") },
-            modifier = Modifier.width(200.dp),
-
-            singleLine = true
+        WokulskiTextField(
+            value = name,
+            onValueChange = { name = it },
+            label = "Nazwa produktu"
+        )
+        WokulskiTextField(
+            value = amount,
+            onValueChange = { amount = it },
+            label = "Kwota (ruble)"
+        )
+        WokulskiTextField(
+            value = category,
+            onValueChange = { category = it },
+            label = "Kategoria"
         )
 
-        Text(text = "Cena produktu: ")
-        OutlinedTextField(
-            value = price.value,
-            onValueChange = { price.value = it },
-            label = { Text("Cena") },
-            modifier = Modifier.width(200.dp),
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+        Spacer(modifier = Modifier.height(10.dp))
+
+        WokulskiButton(
+            text = "Zaksięguj zysk",
+            onClick = {
+                val parsedAmount = amount.toDoubleOrNull()
+
+                if (name.isNotBlank() && parsedAmount != null && parsedAmount > 0) {
+                    val transaction = Transaction(
+                        name = name,
+                        amount = parsedAmount,
+                        isExpense = false,
+                        category = category,
+                        isUnnecessary = false
+                    )
+
+                    onAddIncome(transaction)
+                    name = ""
+                    amount = ""
+                    category = ""
+                }
+            }
         )
-        Spacer(modifier = Modifier.height(8.dp))
-        
     }
 }

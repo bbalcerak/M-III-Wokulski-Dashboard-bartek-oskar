@@ -43,13 +43,13 @@ fun ExpenseForm(onAddExpense:
             label = "Nazwa towaru/usługi")
         WokulskiTextField(value = amount,
             onValueChange = { amount = it },
-            label = "kwota (ruble)")
+            label = "Kwota (ruble)")
         WokulskiTextField(value = category,
             onValueChange = { category = it },
             label = "Kategoria")
 
         Row(verticalAlignment = Alignment.CenterVertically){
-            Text("Wydatek zbyteczny?")
+            Text("Wydatek zbyteczny? ")
             Switch(checked = isUnnecessary, onCheckedChange = { isUnnecessary = it })
         }
 
