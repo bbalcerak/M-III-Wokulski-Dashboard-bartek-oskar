@@ -36,7 +36,9 @@ fun ExpenseForm(onAddExpense:
     Column(
         Modifier.padding(16.dp)
     ) {
-        Text("KSIĘGOWANIE KOSZTÓW")
+        Text("KSIĘGOWANIE KOSZTÓW",
+            style = androidx.compose.material3.MaterialTheme.typography.titleMedium
+        )
 
         WokulskiTextField(value = name,
             onValueChange = { name = it },
@@ -49,7 +51,7 @@ fun ExpenseForm(onAddExpense:
             label = "Kategoria")
 
         Row(verticalAlignment = Alignment.CenterVertically){
-            Text("Wydatek zbyteczny?")
+            Text("Wydatek zbyteczny? ")
             Switch(checked = isUnnecessary, onCheckedChange = { isUnnecessary = it })
         }
 
