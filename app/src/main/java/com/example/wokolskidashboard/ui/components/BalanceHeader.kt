@@ -18,7 +18,7 @@ fun BalanceHeader(balance: Double) {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Aktualny stan konta: $balance rub",
+            text = "Aktualny stan konta: $balance rubli",
             style = MaterialTheme.typography.headlineMedium
         )
     }
